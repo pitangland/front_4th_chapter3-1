@@ -34,19 +34,47 @@ describe('getDaysInMonth', () => {
 });
 
 describe('getWeekDates', () => {
-  it('주중의 날짜(수요일)에 대해 올바른 주의 날짜들을 반환한다', () => {});
+  it('주중의 날짜(수요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+    const date = new Date('2025-02-05');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([2, 3, 4, 5, 6, 7, 8]);
+  });
 
-  it('주의 시작(월요일)에 대해 올바른 주의 날짜들을 반환한다', () => {});
+  it('주의 시작(월요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+    const date = new Date('2025-02-03');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([2, 3, 4, 5, 6, 7, 8]);
+  });
 
-  it('주의 끝(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {});
+  it('주의 끝(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+    const date = new Date('2025-02-09');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([9, 10, 11, 12, 13, 14, 15]);
+  });
 
-  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연말)', () => {});
+  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연말)', () => {
+    const date = new Date('2024-12-31');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([29, 30, 31, 1, 2, 3, 4]);
+  });
 
-  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연초)', () => {});
+  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연초)', () => {
+    const date = new Date('2025-01-01');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([29, 30, 31, 1, 2, 3, 4]);
+  });
 
-  it('윤년의 2월 29일을 포함한 주를 올바르게 처리한다', () => {});
+  it('윤년의 2월 29일을 포함한 주를 올바르게 처리한다', () => {
+    const date = new Date('2024-02-29');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([25, 26, 27, 28, 29, 1, 2]);
+  });
 
-  it('월의 마지막 날짜를 포함한 주를 올바르게 처리한다', () => {});
+  it('월의 마지막 날짜를 포함한 주를 올바르게 처리한다', () => {
+    const date = new Date('2025-02-28');
+    const result = getWeekDates(date).map((d) => d.getDate());
+    expect(result).toEqual([23, 24, 25, 26, 27, 28, 1]);
+  });
 });
 
 describe('getWeeksAtMonth', () => {
