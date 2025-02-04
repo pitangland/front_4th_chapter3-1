@@ -85,9 +85,67 @@ describe('convertEventToDateRange', () => {
 });
 
 describe('isOverlapping', () => {
-  it('두 이벤트가 겹치는 경우 true를 반환한다', () => {});
+  it('두 이벤트가 겹치는 경우 true를 반환한다', () => {
+    const event: Event[] = [
+      {
+        id: '1',
+        title: '회의',
+        date: '2025-02-01',
+        startTime: '10:00',
+        endTime: '18:00',
+        description: '팀 회의',
+        location: '회의실 A',
+        category: '업무',
+        repeat: { type: 'none', interval: 1 },
+        notificationTime: 10,
+      },
+      {
+        id: '2',
+        title: '점심 약속',
+        date: '2025-02-01',
+        startTime: '12:00',
+        endTime: '13:00',
+        description: '친구와 점심',
+        location: '카페',
+        category: '개인',
+        repeat: { type: 'none', interval: 1 },
+        notificationTime: 15,
+      },
+    ];
+    const result = isOverlapping(event[0], event[1]);
+    expect(result).toBe(true);
+  });
 
-  it('두 이벤트가 겹치지 않는 경우 false를 반환한다', () => {});
+  it('두 이벤트가 겹치지 않는 경우 false를 반환한다', () => {
+    const event: Event[] = [
+      {
+        id: '1',
+        title: '회의',
+        date: '2025-02-01',
+        startTime: '10:00',
+        endTime: '11:00',
+        description: '팀 회의',
+        location: '회의실 A',
+        category: '업무',
+        repeat: { type: 'none', interval: 1 },
+        notificationTime: 10,
+      },
+      {
+        id: '2',
+        title: '점심 약속',
+        date: '2025-03-01',
+        startTime: '12:00',
+        endTime: '13:00',
+        description: '친구와 점심',
+        location: '카페',
+        category: '개인',
+        repeat: { type: 'none', interval: 1 },
+        notificationTime: 15,
+      },
+    ];
+    const result = isOverlapping(event[0], event[1]);
+    expect(result).toBe(false);
+  });
 });
 
 describe('findOverlappingEvents', () => {
