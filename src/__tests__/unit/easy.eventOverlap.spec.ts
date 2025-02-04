@@ -29,11 +29,59 @@ describe('parseDateTime', () => {
 });
 
 describe('convertEventToDateRange', () => {
-  it('일반적인 이벤트를 올바른 시작 및 종료 시간을 가진 객체로 변환한다', () => {});
+  it('일반적인 이벤트를 올바른 시작 및 종료 시간을 가진 객체로 변환한다', () => {
+    const event: Event = {
+      id: '1',
+      title: '회의',
+      date: '2025-02-01',
+      startTime: '10:00',
+      endTime: '11:00',
+      description: '팀 회의',
+      location: '회의실 A',
+      category: '업무',
+      repeat: { type: 'none', interval: 1 },
+      notificationTime: 10,
+    };
+    const result = convertEventToDateRange(event);
+    expect(result.start).toEqual(new Date('2025-02-01T10:00'));
+    expect(result.end).toEqual(new Date('2025-02-01T11:00'));
+  });
 
-  it('잘못된 날짜 형식의 이벤트에 대해 Invalid Date를 반환한다', () => {});
+  it('잘못된 날짜 형식의 이벤트에 대해 Invalid Date를 반환한다', () => {
+    const event: Event = {
+      id: '1',
+      title: '회의',
+      date: '2025:02:01',
+      startTime: '10:00',
+      endTime: '11:00',
+      description: '팀 회의',
+      location: '회의실 A',
+      category: '업무',
+      repeat: { type: 'none', interval: 1 },
+      notificationTime: 10,
+    };
+    const result = convertEventToDateRange(event);
+    expect(result.start.toString()).toBe('Invalid Date');
+    expect(result.end.toString()).toBe('Invalid Date');
+  });
 
-  it('잘못된 시간 형식의 이벤트에 대해 Invalid Date를 반환한다', () => {});
+  it('잘못된 시간 형식의 이벤트에 대해 Invalid Date를 반환한다', () => {
+    const event: Event = {
+      id: '1',
+      title: '회의',
+      date: '2025-02-01',
+      startTime: '10-00',
+      endTime: '11-00',
+      description: '팀 회의',
+      location: '회의실 A',
+      category: '업무',
+      repeat: { type: 'none', interval: 1 },
+      notificationTime: 10,
+    };
+    const result = convertEventToDateRange(event);
+    expect(result.start.toString()).toBe('Invalid Date');
+    expect(result.end.toString()).toBe('Invalid Date');
+  });
 });
 
 describe('isOverlapping', () => {
