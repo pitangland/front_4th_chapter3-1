@@ -8,6 +8,7 @@ import { findOverlappingEvents } from '../utils/eventOverlap';
 interface UseEventConflictReturn {
   isOverlapDialogOpen: boolean;
   overlappingEvents: Event[];
+  // eslint-disable-next-line no-unused-vars
   checkEventConflict: (eventData: Event | EventForm, allEvents: Event[]) => boolean;
   closeOverlapDialog: () => void;
 }
