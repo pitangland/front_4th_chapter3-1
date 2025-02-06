@@ -55,7 +55,7 @@ describe('getUpcomingEvents', () => {
   });
 });
 
-describe.only('createNotificationMessage', () => {
+describe('createNotificationMessage', () => {
   it('올바른 알림 메시지를 생성해야 한다', () => {
     const event = mockEvents[0];
     const result = createNotificationMessage(event);
