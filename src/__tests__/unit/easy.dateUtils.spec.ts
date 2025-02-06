@@ -75,6 +75,11 @@ describe('getWeekDates', () => {
     const result = getWeekDates(date).map((d) => d.getDate());
     expect(result).toEqual([23, 24, 25, 26, 27, 28, 1]);
   });
+
+  it('유효하지 않은 날짜는 적절히 반환한다', () => {
+    const date = new Date('2025-02-3g1');
+    expect(() => getWeekDates(date)).toThrow('유효하지 않은 날짜입니다.');
+  });
 });
 
 describe('getWeeksAtMonth', () => {
@@ -132,6 +137,7 @@ describe('getEventsForDay', () => {
   ];
   it('특정 날짜(1일)에 해당하는 이벤트만 정확히 반환한다', () => {
     const result = getEventsForDay(mockEvents, 1);
+    // 실제 데이터를 넣어주는게 좋다?!
     expect(result).toEqual([mockEvents[0], mockEvents[1]]);
   });
 
